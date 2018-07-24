@@ -1,29 +1,109 @@
 ## API参考
 ### 交易API
-1. Get/currency/trade/cancel删除订单
 
-URL ```https://api.ttex.com/currency/trade/cancel```
+1. Get/currency/trade/market/buy市价交易买入
+
+URL ```  https://api.ttex.com/currency/trade/market/buy```
 示例
 ```
 # Request
-GET https://api.ttex.com/currency/trade/cancel
+GET   https://api.ttex.com/currency/trade/market/buy
 # Response
 {
-	"data":"委托撤单成功",
-	"result":success
+        "txNo":15300629835086
+        "result":3000
 }
 ```
 返回值说明
 ```
-data:委托撤单成功
-result:成功
+result:是否成功
+txNo:订单号
 ```
 请求参数
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| txNo|  String |  是  | 当前选择撤销订单号|
-2. Get/currency/trade/findHistoryEntrust获取个人历史委托
+|amount|  number   |   是     |	买入量	  |
+| symbol|  String |  是   | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
+
+2. Get/currency/trade/market/sell市价交易卖出
+
+URL ```   https://api.ttex.com/currency/trade/market/sell```
+示例
+```
+# Request
+GET    https://api.ttex.com/currency/trade/market/sell
+# Response
+{
+        "txNo":153006298350861212
+        "result":3000
+}
+```
+返回值说明
+```
+result:是否成功
+txNo:订单号
+```
+请求参数
+
+|参数名    |     参数类型 |   必填  |  描述 |
+| :-------- | --------:| :------: |:------:|
+|num|  number   |   是     |	卖出量	  |
+| symbol|  String |  是   | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
+
+3. Get/currency/trade/buy限价交易买入
+
+URL ```https://api.ttex.com/currency/trade/buy```
+示例
+```
+# Request
+GET     https://api.ttex.com/currency/trade/buy
+# Response
+{
+        "txNo":1530063601833776402
+        "result":3000
+}
+```
+返回值说明
+```
+result:是否成功
+txNo:订单号
+```
+请求参数
+
+|参数名    |     参数类型 |   必填  |  描述 |
+| :-------- | --------:| :------: |:------:|
+|num|  number   |   是     |	限价买入量	  |
+| symbol|  String |  是  | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
+|price | number|是|限价买入价格
+
+4. Get/currency/trade/sell限价交易卖出
+
+URL ```    https://api.ttex.com/currency/trade/sell```
+示例
+```
+# Request
+GET     https://api.ttex.com/currency/trade/sell
+# Response
+{
+        "txNo":1512263601833776402
+        "result":3000
+}
+```
+返回值说明
+```
+result:是否成功
+txNo:订单号
+```
+请求参数
+
+|参数名    |     参数类型 |   必填  |  描述 |
+| :-------- | --------:| :------: |:------:|
+|num|  number   |   是     |	限价买入量	  |
+| symbol|  String |  是   | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
+|price| number|是|价格
+
+5. Get/currency/trade/findHistoryEntrust获取个人历史委托
 
 URL ```  https://api.ttex.com/currency/trade/findHistoryEntrust ```
 示例
@@ -32,7 +112,7 @@ URL ```  https://api.ttex.com/currency/trade/findHistoryEntrust ```
 GET https://api.ttex.com/currency/trade/findHistoryEntrust
 # Response
 {
-	"data:[{
+	"data":[{
 	"createTimeString":2018-06-21 15:23:44
 	"entrustNumber":12407980.8629
 	"entrustPrice":0.08059329
@@ -56,17 +136,18 @@ result:成功
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-3. Get/currency/trade/findEntrust获取个人当前委托
+| symbol|  String |  是   | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
 
-URL ```https://api.ttex.com/currency/trade/findHistoryEntrust ```
+6. Get/currency/trade/findEntrust获取个人当前委托
+
+URL ```https://api.ttex.com/currency/trade/findEntrust ```
 示例
 ```
 # Request
-GET https://api.ttex.com/currency/trade/findHistoryEntrust
+GET https://api.ttex.com/currency/trade/findEntrust
 # Response
 {
-	"data:[{
+	"data":[{
 	"createTimeString":2018-06-21 15:23:44
 	"entrustNumber":12407980.8629
 	"entrustPrice":0.08059329
@@ -90,356 +171,146 @@ result:成功
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-4. Get/public/stock/get获取交易盘口
+| symbol|  String |  是   | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
 
-URL ```https://api.ttex.com/public/stock/get```
+7. Get/v1/market/tickers获取行情
+
+URL ```https://api.ttex.com/v1/market/tickers```
 示例
 ```
 # Request
-GET https://api.ttex.com/public/stock/get
+GET   https://api.ttex.com/v1/market/tickers
 # Response
 {
-	"data:{
-	"price":0.00252621
-	"priceFluctuation":4.52
-	},
-	"result":success
+    "date":1530884195825
+    "ticker":{
+              "high":"6999.0000000000"
+              "vol":"30.2457600980669260025024414062500"
+              "last":"6680.0000000000"
+              "low":"6432.0100000000"
+              "buy":"6621.0000000000"
+              "sell":"6899.9700000000"
+              "changeRate":null
+    }
 }
 ```
 返回值说明
 ```
-data:请求返回成功取到的对象
-price:价格
-priceFluctuation:占比
-result:成功
+ticker:获取行情返回成功的一个对象
+
 ```
 请求参数
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-5. Get/public/stock/marketDepth获取交易盘口数据
+| symbol|  String |  是  | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
 
-URL ``` https://api.ttex.com/public/stock/marketDepth```
+8. Get/v1/market/depth获取深度
+
+URL ```https://api.ttex.com/v1/market/depth```
 示例
 ```
 # Request
-GET https://api.ttex.com/public/stock/marketDepth
+GET   https://api.ttex.com/v1/market/depth
 # Response
 {
-  "buyers":[{
-  "amountStr":59.2182
-  "priceStr":0.0025201500
-  }],
-  "sellers":[{
-  "amountStr":13.2563
-  "priceStr":0.0025275500
-  }],
+   "asks":[
+         [6899.9700000000,0.0520]
+         [6899.9800000000,0.0775]
+         [6999.9900000000,0.0401]
+         [7000.0000000000,0.1222]
+         [7100.0000000000,0.2335]
+   ]
+   "bids":[
+         [6680.0000000000,0.0200]
+         [6621.0000000000,2.8899]
+         [6580.0000000000,0.0697]
+         [6575.0000000000,0.1500]
+         [6535.5000000000,0.3075]
+   ]
 }
 ```
 返回值说明
 ```
-buyers:请求返回成功取到的数组对象
-sellers:请求返回成功取到的数组对象
-amountStr:数量
-priceStr:价格
+asks:数据请求成功得到的数组
+bids:数据请求成功得到的数组
 ```
 请求参数
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-| num|  number|  是  |盘口显示数据量|
-6. Get/public/stock/currency/trade/latest交易记录
+| symbol|  String |  是  | btc_usdt ltc_usdt eth_usdt etc_usdt bch_usdt|
+| size|  Number |  是  | 深度|
 
-URL ```https://api.ttex.com/public/stock/currency/trade/latest```
+9. Get/currency/trade/cancel撤单
+
+URL ```https://api.ttex.com/currency/trade/cancel```
 示例
 ```
 # Request
-GET   https://api.ttex.com/public/stock/currency/trade/latest
-# Response
-[{
-    "num":303.6577
-    "tradePrice":0.00000739
-    "tradeTime":1529568810638
-}]
-```
-返回值说明
-```
-num:成交数量
-tradePrice:成交价格
-tradeTime:成交时间
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-7. Get/member/position/getWithCurrency获取当前交易对余额
-
-URL ```https://api.ttex.com/member/position/getWithCurrency```
-示例
-```
-# Request
-GET https://api.ttex.com/member/position/getWithCurrency
+GET   https://api.ttex.com/currency/trade/cancel
 # Response
 {
-        "buyBalance":99999998.3391
-        "sellBalance":0.000000
+     "result":success
 }
 ```
 返回值说明
 ```
-buyBalance:买入时余额
-sellBalance:买入时余额
+result:撤单是否成功
 ```
 请求参数
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-8. Get/public/stock/findBySector获取首页列表
+| txNo|  String|  是  | 订单号|
 
-URL ``` https://api.ttex.com/public/stock/findBySector```
+10. Get/currency/trade/findOrder用户订单信息
+
+URL ```https://api.ttex.com/currency/trade/findOrder```
 示例
 ```
 # Request
-GET  https://api.ttex.com/public/stock/findBySector
+GET   https://api.ttex.com/currency/trade/findOrder
 # Response
-[{
-        "price":0.000019
-        "priceFluctuation":0
-        "tokenIdentification":TTF
-}]
+{
+     "result":success
+     "data":{
+     "createTimeString":2018-07-06 22:33:17
+     "entrustNumber":0.0046
+     "entrustPrice":0.110185
+     "tradeMark":0
+     "tradeStatus":1
+     "turnoverQuantity"1
+     }
+}
 ```
 返回值说明
 ```
-price:价格
-priceFluctuation:涨跌幅	
-tokenIdentification:币种
+result:请求是否成功
+createTimeString:委托时间
+entrustNumber:委托数量
+entrustPrice:委托价格
+tradeMark:tradeMark=0,为买入状态;tradeMark=1,为卖出状态。
+turnoverQuantity:成交数量
+tradeStatus:状态
+状态说明
+         当 tradeStatus=0;// 正在委托下单
+	 当 tradeStatus=1;// 委托成功
+	 当 tradeStatus=2;// 部分成交
+	 当 tradeStatus=3;// 已成交
+	 当 tradeStatus=4; // 场内撤单
+	 当 tradeStatus=5; // 场外撤单
+	 当 tradeStatus=6;// 下单失败
+		 
 ```
 请求参数
 
 |参数名    |     参数类型 |   必填  |  描述 |
 | :-------- | --------:| :------: |:------:|
-|sectorId |  number   |   是     |   sectorId=2时根据BTC  |
-|v         |       number  |  是       |  v=0.5570646255753278|
+| txNo|  String|  是  | 订单号|
 
 ###资产API
-1. Get/currency/deposits/find充值记录
-
-URL ```  https://api.ttex.com/currency/deposits/find```
-示例
-```
-# Request
-GET https://api.ttex.com/currency/deposits/find
-# Response
-{
-     "data":[{
-     "amount":10000
-     "confirmTimeThreshold":1
-     "confirmTimes":1
-     "createTimeString":2018-06-02 17:35:45
-     "flow":1
-     "txNo":20180602583955
-     }],
-     "result":success
-}
-```
-返回值说明
-```
-data:返回成功时的数组对象
-amount:数量
-createTimeString:充币时间
-txNo:订单号
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-| type  |           |   是        |  type=0       |
-2. Get/ewallet/ewalletAddress/findCurrencyDepositAddress充币地址
-
-URL ```  https://api.ttex.com/ewallet/ewalletAddress/findCurrencyDepositAddress```
-示例
-```
-# Request
-GET  https://api.ttex.com/ewallet/ewalletAddress/findCurrencyDepositAddress
-# Response
-{
-     "data":[{
-     "address":0xc298fe018e00db3670fdf3ed4b5ff7f1f06397cd
-     }],
-     "result":success
-}
-```
-返回值说明
-```
-data:返回成功时的数组对象
-address:地址
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-3. Get/ewallet/ewalletAddress/delete删除提币地址
-
-URL ```  https://api.ttex.com/ewallet/ewalletAddress/delete```
-示例
-```
-# Request
-GET  https://api.ttex.com/ewallet/ewalletAddress/delete
-# Response
-{
-     "result":success
-}
-```
-返回值说明
-```
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| ids|  number|  是  | 提币地址|
-4. Get/currency/withdraws/save提币
-
-URL ```   https://www.api.com/currency/withdraws/save```
-示例
-```
-# Request
-GET  https://api.ttex.com/currency/withdraws/save
-# Response
-{    
-     "data":提交成功
-     "result":success
-}
-```
-返回值说明
-```
-data:提交成功
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| amount|  number|  是  | 提币数量	|
-| 	captcha|  number|  是  | 	验证码|
-| pwd|  string|  是  |	资金密码	|
-|toEwalletAddress|  string|  是  | 提币地址	|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-5. Get/public/stock/get提币手续费
-
-URL ```   https://api.ttex.com/public/stock/get```
-示例
-```
-# Request
-GET https://api.ttex.com/public/stock/get
-# Response
-{  
-     "data":{
-     "currencyPoundage":0.01
-     }
-     "result":success
-}
-```
-返回值说明
-```
-data:请求成功返回的对象
-currencyPoundage:提币手续费
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-6. Get/currency/withdraws/find提币记录
-
-URL ``` https://api.ttex.com/currency/withdraws/find```
-示例
-```
-# Request
-GET  https://api.ttex.com/currency/withdraws/find
-# Response
-{  
-     "data":[{
-     "amount":5
-     "createTimeString":2018-06-11 15:11:40
-     "flow":1
-     "toEwalletAddress":212
-     }]
-     "result":success
-}
-```
-返回值说明
-```
-data:请求成功返回的数组对象
-amount:数量
-createTimeString:时间
-flow:状态
-toEwalletAddress:地址
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-| type    |  number    | 是     | type=0      |
-7. Get/ewallet/ewalletAddress/find显示提币地址
-
-URL ``` https://api.ttex.com/ewallet/ewalletAddress/find```
-示例
-```
-# Request
-GET  https://api.ttex.com/ewallet/ewalletAddress/find
-# Response
-{  
-     "data":[{
-     "address":111
-     }]
-     "result":success
-}
-```
-返回值说明
-```
-data:请求成功返回的数组对象
-address:地址
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| symbol|  String |  是  | btc_usd ltc_usd eth_usd etc_usd bch_usd|
-8. Get/ewallet/ewalletAddress/save添加提币地址
-
-URL ```  https://api.ttex.com/ewallet/ewalletAddress/save```
-示例
-```
-# Request
-GET   https://api.ttex.com/ewallet/ewalletAddress/save
-# Response
-{  
-     "result":success
-}
-```
-返回值说明
-```
-result:返回是否成功
-```
-请求参数
-
-|参数名    |     参数类型 |   必填  |  描述 |
-| :-------- | --------:| :------: |:------:|
-| address|  String |  是  | 提币地址 |
-9. Get/member/getAccount资产中心
+1. Get/member/getAccount资产中心
 
 URL ```https://api.ttex.com/member/getAccount```
 示例
@@ -463,12 +334,6 @@ marketValue:估值
 name:币种
 totalNum:可用余额
 ```
-
-
-
-
-
-
 
 
 
